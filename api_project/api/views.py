@@ -1,11 +1,12 @@
 from .models import Book
 from .serializers import BookSerializer
 from rest_framework import permissions
+from rest_framework.generics import ListAPIView
 
-# class BookList(ListAPIView):
-#     queryset = Book.objects.all()
-#     serializer_class = BookSerializer
-# # Create your views here.
+class BookList(ListAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+# Create your views here.
 
 
 # using viewsets

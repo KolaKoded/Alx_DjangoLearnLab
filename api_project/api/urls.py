@@ -1,9 +1,9 @@
 from django.urls import include, path
-# from . import views
+from . import views
 
-# urlpatterns = [
-#     path('books/', views.BookList.as_view())  
-# ]
+urlpatterns = [
+    path('books/', views.BookList.as_view())  
+]
 
 # using viewset
 from rest_framework.routers import DefaultRouter
