@@ -1,0 +1,5 @@
+// Purpose: Ignore files and directories that are not necessary to be tracked by git
+.venv
+db.sqlite3
+
+__pycache__/
