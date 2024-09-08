@@ -8,7 +8,8 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticate
 from .permissions import IsAdminOrEditor, IsAdmin
 from django_filters import rest_framework
 # from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework.filters import SearchFilter, OrderingFilter
+from rest_framework import filters
+# from rest_framework.filters import SearchFilter, OrderingFilter
 from .filters import BookFilter
 
 # This class-based view is used to list all books and doesnt require any permissions or authentication
@@ -16,7 +17,7 @@ class ListView(generics.ListAPIView):
 
     queryset = Book.objects.all() # Query all books
     serializer_class = BookSerializer  # Use the BookSerializer to serialize the data
-    filter_backends = [rest_framework.DjangoFilterBackend, SearchFilter, OrderingFilter] # Use the DjangoFilterBackend for filtering
+    filter_backends = [rest_framework.DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter] # Use the DjangoFilterBackend for filtering
     filterset_class = BookFilter # Use the BookFilter class for filtering
     search_fields = ['title', 'author__name'] # Search fields for the SearchFilter
     ordering_fields = ['title', 'publication_year'] # Ordering fields for the OrderingFilter
