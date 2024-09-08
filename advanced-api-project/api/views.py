@@ -4,12 +4,11 @@ from rest_framework import status
 from datetime import date
 from .models import Book
 from .serializers import BookSerializer
-from rest_framework import permissions
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from .permissions import IsAdminOrEditor, IsAdmin
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
 from .filters import BookFilter
-
 
 # This class-based view is used to list all books and doesnt require any permissions or authentication
 class ListView(generics.ListAPIView):
@@ -31,7 +30,7 @@ class DetailView(generics.RetrieveAPIView):
 # This class-based view is used to create a new book and requires the user to be authenticated and have the role of 'admin' or 'editor'
 class CreateView(generics.CreateAPIView):    
     # Permissions: Only authenticated users with the role of 'admin' or 'editor' can create a new book
-    permission_classes = [permissions.IsAuthenticated, IsAdminOrEditor]
+    permission_classes = [IsAuthenticated, IsAdminOrEditor]
 
     queryset = Book.objects.all()
     serializer_class = BookSerializer
@@ -55,7 +54,7 @@ class CreateView(generics.CreateAPIView):
 
 # This class-based view is used to update an existing book by its primary key (pk) and requires the user to be authenticated and have the role of 'admin' or 'editor'
 class UpdateView(generics.UpdateAPIView):   
-    permission_classes = [permissions.IsAuthenticated, IsAdminOrEditor]
+    permission_classes = [IsAuthenticated, IsAdminOrEditor]
 
     queryset = Book.objects.all()
     serializer_class = BookSerializer
@@ -80,7 +79,7 @@ class UpdateView(generics.UpdateAPIView):
 
 # This class-based view is used to delete an existing book by its primary key (pk) and requires the user to be authenticated and have the role of 'admin'
 class DeleteView(generics.DestroyAPIView):
-    permission_classes = [permissions.IsAuthenticated, IsAdmin]
+    permission_classes = [IsAuthenticated, IsAdmin]
     queryset = Book.objects.all()
     serializer_class = BookSerializer
 
