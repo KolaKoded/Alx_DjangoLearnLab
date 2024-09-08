@@ -2,9 +2,11 @@ from rest_framework import serializers
 from .models import Author, Book
 from datetime import date
 
+["(many=True, read_only=True)"]
+
 class AuthorSerializer(serializers.ModelSerializer):
     # the name field to store the name from the client side
-    name = serializers.CharField()
+    name = serializers.CharField(many=True, read_only=True)
 
     class Meta:
         model = Author
