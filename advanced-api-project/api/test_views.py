@@ -14,7 +14,8 @@ class BookAPITest(APITestCase):
         self.user = User.objects.create_user(username="testuser", password="password")
         self.user.role = 'admin'  # Assuming the role is set like this
         self.user.save()
-
+        
+        self.client.login(username="testuser", password="password")
         self.client.force_authenticate(user=self.user)
         
     
