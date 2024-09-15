@@ -11,6 +11,7 @@ class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'email', 'password1', 'password2']
+        
 
     def save(self, commit=True):
         user = super().save(commit=False)
@@ -32,6 +33,17 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ['title', 'content', 'tags']
+        widgets = {
+            'title': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter the title of the post'
+            }),
+            'content': forms.Textarea(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter the content of the post',
+                'rows': 6
+            }),
+        }
 
 
 class CommentForm(forms.ModelForm):
