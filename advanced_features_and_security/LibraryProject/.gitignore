@@ -1,0 +1,4 @@
+.venv
+profile_photos/
+
+db.sqlite3
