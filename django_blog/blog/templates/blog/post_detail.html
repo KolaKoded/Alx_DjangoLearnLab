@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="post-detail-container">
+    <h2>{{ post.title }}</h2>
+    <p>{{ post.content }}</p>
+    <p>Tags: </p>
+    <ul>
+        {% for tag in post.tags.all %}
+            <li class="tags"><a href="{% url 'tagged_posts' tag.name %}">{{ tag.name }}</a></li>
+        {% empty %}
+            <li>No tags</li>
+        {% endfor %}
+    </ul>
+    <p><small>Published on {{ post.published_date }}</small></p>
+    <p>Author: {{ post.author }}</p>
+
+    {% if user.is_authenticated and user == post.author %}
+      <a href="{% url 'post_update' post.pk %}" class="btn btn-primary">Edit</a>
+      <a href="{% url 'post_delete' post.pk %}" class="btn btn-danger">Delete</a>
+    {% endif %}
+
+    <!-- Comment Section -->
+    <div class="comment-section">
+      <h3>Comments</h3>
+      <ul class="comment-list">
+        {% for comment in comments %}
+          <li class="comment-item">
+            <p>{{ comment.content }}</p>
+            <p><small>Posted by {{ comment.author }} on {{ comment.created_at }}</small></p>
+
+            {% if user.is_authenticated and user == comment.author %}
+              <a href="{% url 'comment_update' post_id=post.pk pk=comment.pk %}">Edit Comment</a>
+
+              <a href="{% url 'comment_delete' post_id=post.id pk=comment.id %}" class="btn btn-danger">Delete</a>
+            {% endif %}
+          </li>
+        {% empty %}
+          <p>No comments yet.</p>
+        {% endfor %}
+      </ul>
+
+      {% if user.is_authenticated %}
+        <form method="post" action="{% url 'comment_create' post.pk %}">
+          
+          {% csrf_token %}
+          <button type="submit">Add Comment</button>
+        </form>
+      {% else %}
+        <p>You must be logged in to add a comment.</p>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}

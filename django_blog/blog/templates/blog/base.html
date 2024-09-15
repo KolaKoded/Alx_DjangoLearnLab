@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Django Blog{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'post_list' %}">Blog Posts</a></li>
+                {% if user.is_authenticated %}
+
+                    <!-- Authenticated User Links -->
+                    <li><a href="{% url 'post_new' %}" class="btn btn-primary">Create Post</a></li>
+                    <li><a href="{% url 'profile' %}">Profile</a></li>
+
+                    <!-- Search Form -->
+                    <li>
+                        <form method="get" action="{% url 'search_posts' %}" class="search">
+                            <input class="search-input" type="text" name="query" placeholder="Search posts..." value="{{ request.GET.query }}">
+                            <button type="submit">Search</button>
+                        </form>
+                    </li>
+
+                    <li>
+                        <form method="post" action="{% url 'logout' %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-secondary">Logout</button>
+                        </form>
+                    </li>
+                {% else %}
+                    <!-- Non-authenticated User Links -->
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                    <li><a href="{% url 'register' %}">Register</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+
+    <main class="content">
+        {% block content %}
+        <!-- Page-specific content goes here -->
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Django Blog</p>
+    </footer>
+
+    <script src="{% static 'js/scripts.js' %}"></script>
+</body>
+</html>

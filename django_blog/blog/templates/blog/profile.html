@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <section class="profile-main">
+        <h1>Profile</h1>
+        <p>Welcome, {{ user.username }}!</p>
+        <p>Email: {{ user.email }}</p>
+        
+        <a href="{% url 'update_profile' %}" class="btn btn-primary">Update Profile</a>
+        
+        <br><br>
+    </section>
+
+{% endblock %}

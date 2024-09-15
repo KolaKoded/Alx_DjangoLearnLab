@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="post-list-container">
+    <h2>All Posts</h2>
+    <ul class="post-list">
+      {% for post in posts %}
+        <li>
+          <h3><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></h3>
+          <p>{{ post.content|slice:":100" }}...</p>
+          <p><small>Published on {{ post.published_date }}</small></p>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endblock %}
+  
