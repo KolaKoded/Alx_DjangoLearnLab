@@ -3,6 +3,7 @@ from . import views
 from django.contrib.auth import views as auth_views
 
 # blog/urls.py doesn't contain: ["post/<int:pk>/delete/", "post/<int:pk>/update/", "post/new/"]
+# blog/urls.py doesn't contain: ["tags/<slug:tag_slug>/", "PostByTagListView.as_view()"]
 
 urlpatterns = [
     path('', views.home, name='home' ),
@@ -28,7 +29,7 @@ urlpatterns = [
     path('posts/<int:post_id>/comment/<int:pk>/delete/', views.CommentDeleteView.as_view(), name='comment_delete'),
 
     path('search/', views.SearchPostsView.as_view(), name='search_posts'),
-    path('tag/<str:tag_name>/', views.TaggedPostsView.as_view(), name='tagged_posts'),
+    path('tags/<slug:tag_slug>/', views.PostByTagListView.as_view(), name='tagged_posts'),
 
     
 ];
