@@ -3,8 +3,6 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.models import User
 from taggit.forms import TagWidget
 
-#blog/forms.py doesn't contain: ["TagWidget()", "widgets"]
-
 from blog.models import Post, Comment
 
 class CustomUserCreationForm(UserCreationForm):
