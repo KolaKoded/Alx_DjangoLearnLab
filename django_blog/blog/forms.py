@@ -1,7 +1,9 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.models import User
-from taggit.forms import TagField
+from taggit.forms import TagWidget
+
+#blog/forms.py doesn't contain: ["TagWidget()", "widgets"]
 
 from blog.models import Post, Comment
 
@@ -27,7 +29,7 @@ class CustomUserChangeForm(UserChangeForm):
 
 # handle the form for creating a new post
 class PostForm(forms.ModelForm):
-    tags = TagField(required=False)
+    tags = TagWidget()
     
     class Meta:
         model = Post
